@@ -3,7 +3,13 @@ import { pathToHref } from '../../router/router'
 import { routes } from '../../router/routes'
 import { AraeMark, DownloadIcon } from '../ui/Icons'
 
-const supportPaths = new Set([routes.helpCenter, routes.contact, routes.reportBug, routes.privacy, routes.terms])
+const supportPaths: string[] = [
+  routes.helpCenter,
+  routes.contact,
+  routes.reportBug,
+  routes.privacy,
+  routes.terms,
+]
 
 export function Header({ currentPath }: { currentPath: string }) {
   return (
@@ -18,8 +24,9 @@ export function Header({ currentPath }: { currentPath: string }) {
           {primaryNavigation.map((item) => {
             const isSupportItem = item.path === routes.helpCenter
             const isActive = isSupportItem
-              ? supportPaths.has(currentPath)
+              ? supportPaths.includes(currentPath)
               : currentPath === item.path || currentPath.startsWith(`${item.path}/`)
+
             return (
               <a key={item.label} className={isActive ? 'is-active' : undefined} href={pathToHref(item.path)}>
                 {item.label}
